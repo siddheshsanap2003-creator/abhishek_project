@@ -1,0 +1,377 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Sheti Udyog Samooh</title>
+
+    <!-- Font Awesome for real icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #f5fff5, #e8f5e9);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 40px auto;
+            max-width: 1100px;
+            padding: 20px 30px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logo img {
+            width: 160px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+        .logo img:hover {
+            transform: scale(1.1);
+        }
+        h1 {
+            color: #2e7d32;
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+        .location {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .location a {
+            color: #2e7d32;
+            text-decoration: none;
+        }
+        .location a:hover {
+            text-decoration: underline;
+        }
+        .info {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        /* Carousel Styling */
+        .carousel {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+            height: 450px;
+            margin: 0 auto 40px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+        }
+        .carousel img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: none;
+            transition: opacity 1s ease;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        .carousel img.active {
+            display: block;
+            opacity: 1;
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-controls button {
+            background-color: rgba(46, 125, 50, 0.8);
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            font-size: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .carousel-controls button:hover {
+            background-color: rgba(30, 90, 35, 0.9);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 80px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+        .lightbox img {
+            margin: auto;
+            display: block;
+            max-width: 85%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 45px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .lightbox .close:hover {
+            color: #bbb;
+        }
+
+        /* Factsheet styling */
+        .factsheet {
+            text-align: left;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            background-color: #f9f9f9;
+            padding: 25px 30px;
+            border-radius: 12px;
+            border-left: 6px solid #2e7d32;
+        }
+        .factsheet h2 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        .factsheet h3 {
+            color: #2e7d32;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .factsheet table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .factsheet table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        .factsheet ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .factsheet li {
+            margin-bottom: 6px;
+        }
+
+        /* Buttons Styling */
+        .buttons {
+            margin-top: 25px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            margin: 10px;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 17px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .btn i {
+            font-size: 20px;
+        }
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+        }
+        .btn-whatsapp { background-color: #25D366; }
+        .btn-whatsapp:hover { background-color: #1ebe5d; }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        .btn-instagram:hover { opacity: 0.9; }
+
+        .btn-facebook { background-color: #1877F2; }
+        .btn-facebook:hover { background-color: #0d65d9; }
+
+        footer {
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <img src="{% static 'images/abhisheklogo.jpg' %}" alt="Abhishek Sheti Udyog Samooh Logo">
+        </div>
+
+        <h1>Abhishek Sheti Udyog Samooh</h1>
+        <p class="location">
+            📍 
+            <a href="https://maps.app.goo.gl/ymvvXnWdkGvNVV3e9" target="_self">
+                Panchavati, Nashik, Maharashtra
+            </a>
+        </p>
+
+        <div class="info">
+            <p>
+                Established in the year <strong>2000</strong> at <strong>Panchavati, Nashik, Maharashtra</strong>, we 
+                <strong>“Abhishek Sheti Udyog Samooh”</strong> are a Partnership based firm, engaged as the foremost 
+                <strong>Wholesaler and Retailer</strong> of Plant Vitalizer, Plant Growth Regulator and many more. 
+                Our products are high in demand due to their premium quality, seamless finish, different patterns, 
+                and affordable prices. Furthermore, we ensure timely delivery of these products to our clients — 
+                through this, we have gained a huge client base in the market.
+            </p>
+        </div>
+
+        <!-- Image Carousel -->
+        <div class="carousel" id="carousel">
+            <img src="{% static 'images/picture1.jpg' %}" class="active" onclick="openLightbox(this.src)">
+            <img src="{% static 'images/picture2.jpg' %}" onclick="openLightbox(this.src)">
+            <img src="{% static 'images/picture3.jpg' %}" onclick="openLightbox(this.src)">
+            <img src="{% static 'images/picture4.jpg' %}" onclick="openLightbox(this.src)">
+            <img src="{% static 'images/picture5.jpg' %}" onclick="openLightbox(this.src)">
+            <img src="{% static 'images/picture11.jpg' %}" onclick="openLightbox(this.src)">
+	        <img src="{% static 'images/picture12.jpg' %}" onclick="openLightbox(this.src)">
+	        <img src="{% static 'images/picture13.jpg' %}" onclick="openLightbox(this.src)">
+	        <img src="{% static 'images/picture14.jpg' %}" onclick="openLightbox(this.src)">
+	        <img src="{% static 'images/picture15.jpg' %}" onclick="openLightbox(this.src)">
+	        <img src="{% static 'images/picture16.jpg' %}" onclick="openLightbox(this.src)">
+            <div class="carousel-controls">
+                <button onclick="prevImage()">❮</button>
+                <button onclick="nextImage()">❯</button>
+            </div>
+        </div>
+
+        <!-- Lightbox -->
+        <div id="lightbox" class="lightbox">
+            <span class="close" onclick="closeLightbox()">&times;</span>
+            <img id="lightbox-img" src="">
+        </div>
+
+        <!-- Factsheet -->
+        <div class="factsheet">
+            <h2>Factsheet</h2>
+
+            <h3>Basic Information</h3>
+            <table>
+                <tr><td><strong>Nature of Business:</strong></td><td>Wholesaler / Distributor</td></tr>
+                <tr><td><strong>Additional Business:</strong></td><td>Retail Business, Wholesale Business, Warehouse / Depot</td></tr>
+                <tr><td><strong>Company CEO:</strong></td><td>Abhishek</td></tr>
+                <tr><td><strong>Total Number of Employees:</strong></td><td>26 to 50 People</td></tr>
+                <tr><td><strong>GST Registration Date:</strong></td><td>01-07-2017</td></tr>
+                <tr><td><strong>Legal Status of Firm:</strong></td><td>Partnership</td></tr>
+                <tr><td><strong>Annual Turnover:</strong></td><td>25 - 100 Cr</td></tr>
+                <tr><td><strong>GST Partner Name:</strong></td><td>Sanjaykumar Ramlal Hirawat</td></tr>
+            </table>
+
+            <h3>Statutory Profile</h3>
+            <table>
+                <tr><td><strong>Banker:</strong></td><td>ICICI BANK LIMITED</td></tr>
+                <tr><td><strong>GST No.:</strong></td><td>27AAEFA0318B1Z9</td></tr>
+            </table>
+
+            <!-- New Bank Account Details -->
+            <h3>Bank Account Details</h3>
+            <table>
+                <tr><td><strong>Account Holder:</strong></td><td>ABHISHEK SHETI UDYOG SAMOOH</td></tr>
+                <tr><td><strong>Account Number:</strong></td><td>50200094542085</td></tr>
+                <tr><td><strong>IFSC:</strong></td><td>HDFC0002041</td></tr>
+                <tr><td><strong>Branch:</strong></td><td>PANCHAVATI</td></tr>
+                <tr><td><strong>Account Type:</strong></td><td>CURRENT</td></tr>
+            </table>
+
+            <h3>Packaging/Payment and Shipment Details</h3>
+            <table>
+                <tr><td><strong>Payment Mode:</strong></td><td>Cash, Cheque, DD, Online</td></tr>
+                <tr><td><strong>Shipment Mode:</strong></td><td>By Road</td></tr>
+            </table>
+
+            <h3>Why Us?</h3>
+            <ul>
+                <li>In-depth industry knowledge</li>
+                <li>Timely completion of orders</li>
+                <li>Transparent business dealings</li>
+                <li>A qualified and trained team of professionals</li>
+                <li>Market leading prices</li>
+            </ul>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <a href="https://wa.me/9850841283" target="_self" class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://instagram.com/abhishekshetiudyogsamooh" target="_self" class="btn btn-instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61580833891861" target="_self" class="btn btn-facebook">
+                <i class="fab fa-facebook"></i> Facebook
+            </a>
+        </div>
+
+        <footer>
+            <p>© 2025 Abhishek Sheti Udyog Samooh | All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll('.carousel img');
+        let current = 0;
+        function showImage(index) {
+            images.forEach(img => img.classList.remove('active'));
+            images[index].classList.add('active');
+        }
+        function nextImage() {
+            current = (current + 1) % images.length;
+            showImage(current);
+        }
+        function prevImage() {
+            current = (current - 1 + images.length) % images.length;
+            showImage(current);
+        }
+        setInterval(nextImage, 4000);
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(src) {
+            lightbox.style.display = 'block';
+            lightboxImg.src = src;
+        }
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target === lightbox) closeLightbox();
+        };
+    </script>
+</body>
+</html>
